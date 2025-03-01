@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Pool Side",
+  title: "Poolside Inc",
   description: "Pool consstruction company based in Toronto, Canada",
 };
 
