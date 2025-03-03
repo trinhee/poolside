@@ -10,7 +10,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-    }, 3000); // 3 sec
+    }, 5000); // 3 sec
     return () => clearInterval(interval);
   }, []);
 
@@ -23,6 +23,8 @@ const Hero = () => {
         muted
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover"
+        disablePictureInPicture
+        controlsList="nodownload nofullscreen noremoteplayback"
       >
         <source src="/poolsidemain.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -37,8 +39,8 @@ const Hero = () => {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-sm md:text-lg uppercase tracking-wide font-light"
+              transition={{ duration: 0.5 }}
+              className="text-sm md:text-2xl uppercase tracking-wide font-light"
             >
               {phrases[index]}
             </motion.p>
@@ -48,16 +50,16 @@ const Hero = () => {
         {/* main */}
         <h1 className="text-5xl md:text-7xl mt-2 tracking-wider">POOLSIDE INC</h1>
 
-        <p className="font-[Alegreya] text-lg md:text-xl italic mt-2">
+        <p className="font-[Alegreya] text-xl md:text-2xl italic mt-6">
           Toronto Swimming Pool Company
         </p>
 
         {/* buttons */}
-        <div className="mt-6 flex gap-4">
-          <button className="px-6 py-3 border border-white text-white uppercase font-medium hover:bg-white hover:text-black transition">
+        <div className="mt-8 flex gap-4">
+          <button className="cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition">
             Get a Quote
           </button>
-          <button className="px-6 py-3 border border-white text-white uppercase font-medium hover:bg-white hover:text-black transition">
+          <button className="cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition ease-in-out">
             View Gallery
           </button>
         </div>
