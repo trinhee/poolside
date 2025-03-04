@@ -53,7 +53,7 @@ const Hero = () => {
         <h1 className="font-[Montserrat] text-5xl md:text-7xl mt-2 tracking">POOLSIDE INC</h1>
 
         <p className="font-[Playfair] text-xl md:text-2xl italic mt-6">
-          Toronto Backyard Company
+          Luxury Backyards & Swimming Pools
         </p>
 
         {/* buttons */}

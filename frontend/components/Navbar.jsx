@@ -43,7 +43,7 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      {/* logo */}
+      {/* Logo */}
       <a
         href="#hero"
         className="flex items-center text-white text-3xl font-light"
@@ -51,20 +51,20 @@ const Navbar = () => {
         <IconLogo
           src="/logo.png"
           alt="logo"
-          width={50}
-          height={50}
+          width={180}
+          height={100}
           priority
-          className="w-10 h-10 fill-current hover:translate-y-[-2px] transition-transform"
+          className="w-[90px] h-[50px] md:w-[108px] md:h-[60px] fill-current hover:-translate-y-1 transition-transform object-contain"
         />
       </a>
 
       {/* links, filler for now */}
-      <nav className="hidden md:flex space-x-5">
-        {["ABOUT", "EXPERIENCE", "WORK", "CONTACT"].map((text, index) => (
+      <nav className="hidden md:flex space-x-1">
+        {["GALLERY", "TESTIMONIALS", "ABOUT", "INFO"].map((text, index) => (
           <a
             key={index}
             href={`#${text.toLowerCase()}`}
-            className="relative font-[Montserrat] text-white text-sm font-light transition-all min-w-[120px] text-center"
+            className="relative font-[Montserrat] text-white text-sm font-light transition-all min-w-[200px] text-center"
           >
             {/* Invisible text that forces the largest width */}
             <span className="absolute invisible font-medium">{text}</span>
