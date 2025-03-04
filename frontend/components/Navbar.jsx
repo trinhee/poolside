@@ -37,36 +37,43 @@ const Navbar = () => {
       initial={{ y: 0 }}
       animate={{ y: isScrollingDown ? "-100%" : "0%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 w-full px-8 py-3 z-50 flex items-center justify-between transition-all ${
-        isShadowVisible ? "shadow-lg backdrop-blur-md bg-black/30" : "bg-transparent"
+      className={`fixed top-5 left-0 w-full px-15 py-3 z-50 flex items-center justify-between transition-all ${
+        isShadowVisible
+          ? "shadow-lg backdrop-blur-md bg-black/30"
+          : "bg-transparent"
       }`}
     >
-      {/* logo */ }
-      <a href="#hero" className="flex items-center text-white text-3xl font-light">
-        <IconLogo src="/logo.png" width={50} height={50} priority className="w-10 h-10 fill-current hover:translate-y-[-2px] transition-transform" />
+      {/* logo */}
+      <a
+        href="#hero"
+        className="flex items-center text-white text-3xl font-light"
+      >
+        <IconLogo
+          src="/logo.png"
+          alt="logo"
+          width={50}
+          height={50}
+          priority
+          className="w-10 h-10 fill-current hover:translate-y-[-2px] transition-transform"
+        />
       </a>
-      
 
       {/* links, filler for now */}
-      <nav className="hidden md:flex space-x-8">
-        <a href="#about" className="text-white text-sm font-light hover:font-bold transition-all">
-          About
-        </a>
-        <a href="#experience" className="text-white text-sm font-light hover:font-bold transition-all">
-          Experience
-        </a>
-        <a href="#work" className="text-white text-sm font-light hover:font-bold transition-all">
-          Work
-        </a>
-        <a href="#contact" className="text-white text-sm font-light hover:font-bold transition-all">
-          Contact
-        </a>
-      </nav>
+      <nav className="hidden md:flex space-x-5">
+        {["ABOUT", "EXPERIENCE", "WORK", "CONTACT"].map((text, index) => (
+          <a
+            key={index}
+            href={`#${text.toLowerCase()}`}
+            className="relative font-[Montserrat] text-white text-sm font-light transition-all min-w-[120px] text-center"
+          >
+            {/* Invisible text that forces the largest width */}
+            <span className="absolute invisible font-medium">{text}</span>
 
-      {/* menu */}
-      <button className="cursor-pointer border border-white text-white text-sm font-light px-4 py-2 rounded-md hover:bg-white hover:text-black transition">
-        Menu
-      </button>
+            {/* Actual visible text that changes on hover */}
+            <span className="block hover:font-medium">{text}</span>
+          </a>
+        ))}
+      </nav>
     </motion.header>
   );
 };

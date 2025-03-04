@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const phrases = ["Luxury Backyards", "Extraordinary Swimming Pools", "Trusted Company", "World-Class Service", "Bring Beauty Into Your Home"];
+const phrases = ["Luxury Backyards", "Extraordinary Swimming Pools", "Trusted Company", "World-Class Service", "Bringing Beauty Into Your Home"];
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
@@ -10,7 +10,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-    }, 5000); // 3 sec
+    }, 5000); // 5 sec
     return () => clearInterval(interval);
   }, []);
 
@@ -30,7 +30,9 @@ const Hero = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/30">
+      {/* tint */ }
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/50">
+
         {/* looping text */}
         <div className="h-10 overflow-hidden relative">
           <AnimatePresence mode="wait">
@@ -40,7 +42,7 @@ const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-sm md:text-2xl uppercase tracking-wide font-light"
+              className="font-[Montserrat] text-xs md:text-xl uppercase tracking-wide font-light"
             >
               {phrases[index]}
             </motion.p>
@@ -48,18 +50,18 @@ const Hero = () => {
         </div>
 
         {/* main */}
-        <h1 className="text-5xl md:text-7xl mt-2 tracking-wider">POOLSIDE INC</h1>
+        <h1 className="font-[Montserrat] text-5xl md:text-7xl mt-2 tracking">POOLSIDE INC</h1>
 
-        <p className="font-[Alegreya] text-xl md:text-2xl italic mt-6">
-          Toronto Swimming Pool Company
+        <p className="font-[Playfair] text-xl md:text-2xl italic mt-6">
+          Toronto Backyard Company
         </p>
 
         {/* buttons */}
         <div className="mt-8 flex gap-4">
-          <button className="cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition">
+          <button className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition">
             Get a Quote
           </button>
-          <button className="cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition ease-in-out">
+          <button className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition ease-in-out">
             View Gallery
           </button>
         </div>
