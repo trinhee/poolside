@@ -31,7 +31,7 @@ const Hero = () => {
       </video>
 
       {/* tint */ }
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/50">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/55">
 
         {/* looping text */}
         <div className="h-10 overflow-hidden relative">
@@ -50,14 +50,14 @@ const Hero = () => {
         </div>
 
         {/* main */}
-        <h1 className="font-[Montserrat] text-5xl md:text-7xl mt-2 tracking">POOLSIDE INC</h1>
+        <h1 className="font-[Montserrat] text-4xl md:text-7xl mt-2 tracking">POOLSIDE INC</h1>
 
-        <p className="font-[Playfair] text-xl md:text-2xl italic mt-6">
+        <p className="font-[Playfair] text-md md:text-2xl italic mt-6">
           Luxury Backyards & Swimming Pools
         </p>
 
         {/* buttons */}
-        <div className="mt-8 flex gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full max-w-[250px] sm:max-w-none sm:w-auto sm:justify-center">
           <button className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition">
             Get a Quote
           </button>
