@@ -1,4 +1,4 @@
-import IconInstagram from "@/icons/instagram";
+import IconInstagram from "@/icons/Instagram";
 
 export default function Contact({ isOpen, setIsOpen }) {
   return (
