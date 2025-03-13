@@ -4,7 +4,7 @@ import Head from "next/head";
 
 export const metadata = {
   title: "Poolside Inc",
-  description: "Pool consstruction company based in Toronto, Canada",
+  description: "Pool construction company based in Toronto, Canada",
 };
 
 export default function RootLayout({ children }) {
