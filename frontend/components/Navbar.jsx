@@ -32,6 +32,7 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
+      setIsMenuOpen(false); // Close menu after clicking a link
     }
   };
 
@@ -45,7 +46,7 @@ const Navbar = () => {
       }`}
     >
       {/* Logo */}
-      <a href="#hero" className="relative flex-shrink-0">
+      <a href="/" className="relative flex-shrink-0">
         <Image
           src="/logo.png"
           alt="logo"
@@ -62,10 +63,9 @@ const Navbar = () => {
           <button
             key={index}
             onClick={() => handleScroll(section)}
-            className="relative font-[Montserrat] text-white text-sm font-medium transition-all text-center"
+            className="cursor-pointer font-[Montserrat] text-white text-sm font-medium transition-all text-center hover:font-bold"
           >
-            <span className="absolute invisible font-bold">{section.toUpperCase()}</span>
-            <span className="block hover:font-bold">{section.toUpperCase()}</span>
+            {section.toUpperCase()}
           </button>
         ))}
       </nav>
@@ -75,8 +75,31 @@ const Navbar = () => {
         className="cursor-pointer sm:flex md:hidden text-white text-2xl absolute right-6"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        ☰
+        {isMenuOpen ? "✕" : "☰"}
       </button>
+
+      {/* Mobile Overlay Menu */}
+      <motion.div
+        className={`fixed top-0 left-0 w-full h-screen bg-black/90 flex flex-col items-center justify-center space-y-6 text-white text-lg z-50 transition-transform duration-300 ${
+          isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
+        }`}
+        initial={{ x: "100%", opacity: 0 }}
+        animate={{ x: isMenuOpen ? "0%" : "100%", opacity: isMenuOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {["gallery", "testimonials", "about", "info"].map((section, index) => (
+          <button
+            key={index}
+            onClick={() => handleScroll(section)}
+            className="cursor-pointer text-2xl font-semibold hover:underline transition-all"
+          >
+            {section.toUpperCase()}
+          </button>
+        ))}
+        <button onClick={() => setIsMenuOpen(false)} className="absolute top-6 right-6 text-3xl">
+          ✕
+        </button>
+      </motion.div>
     </motion.header>
   );
 };

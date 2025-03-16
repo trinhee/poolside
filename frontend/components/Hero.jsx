@@ -1,9 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Contact from "../components/Contact"
+import Contact from "../components/Contact";
 
-const phrases = ["Luxury Backyards", "Extraordinary Swimming Pools", "Trusted Company", "World-Class Service", "Bringing Beauty Into Your Home"];
+const phrases = [
+  "Luxury Backyards",
+  "Extraordinary Swimming Pools",
+  "Trusted Company",
+  "World-Class Service",
+  "Bringing Beauty Into Your Home",
+];
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
@@ -16,9 +22,17 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Function to smoothly scroll to the Gallery section
+  const scrollToGallery = () => {
+    const gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+      gallerySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* video bg */}
+    <div id="hero" className="relative w-full h-screen overflow-hidden">
+      {/* Video Background */}
       <video
         autoPlay
         loop
@@ -32,10 +46,9 @@ const Hero = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* tint */ }
+      {/* Tint Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/55">
-
-        {/* looping text */}
+        {/* Looping Text */}
         <div className="h-10 overflow-hidden relative">
           <AnimatePresence mode="wait">
             <motion.p
@@ -51,19 +64,27 @@ const Hero = () => {
           </AnimatePresence>
         </div>
 
-        {/* main */}
-        <h1 className="font-[Montserrat] text-4xl md:text-7xl mt-2x tracking-normal">POOLSIDE INC</h1>
+        {/* Main Heading */}
+        <h1 className="font-[Montserrat] text-4xl md:text-7xl mt-2x tracking-normal">
+          POOLSIDE INC
+        </h1>
 
         <p className="font-[Playfair] text-md md:text-2xl italic mt-6">
           Luxury Backyards & Swimming Pools
         </p>
 
-        {/* buttons */}
+        {/* Buttons */}
         <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full max-w-[250px] sm:max-w-none sm:w-auto sm:justify-center">
-          <button  onClick={() => setIsContactOpen(true)} className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition">
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition"
+          >
             Get a Quote
           </button>
-          <button className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition ease-in-out">
+          <button
+            onClick={scrollToGallery}
+            className="font-[Montserrat] cursor-pointer px-8 py-2.5 border-2 border-white text-white uppercase font-light hover:bg-white hover:text-black transition ease-in-out"
+          >
             View Gallery
           </button>
 
