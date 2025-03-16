@@ -15,11 +15,7 @@ const Navbar = () => {
       const currentScrollY = window.scrollY;
 
       // Hide navbar on scroll down, show on scroll up
-      if (currentScrollY > lastScrollY) {
-        setIsScrollingDown(true);
-      } else {
-        setIsScrollingDown(false);
-      }
+      setIsScrollingDown(currentScrollY > lastScrollY);
 
       // Add shadow when scrolling down
       setIsShadowVisible(currentScrollY > 10);
@@ -28,10 +24,16 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // Smooth scroll function
+  const handleScroll = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <motion.header
@@ -42,33 +44,33 @@ const Navbar = () => {
         isShadowVisible ? "bg-black/30 backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
     >
-      {/* logo */}
-      <a href="#hero" className="relative flex-shrink-0 left-0 md:left-0">
+      {/* Logo */}
+      <a href="#hero" className="relative flex-shrink-0">
         <Image
           src="/logo.png"
           alt="logo"
           width={240}
           height={133}
           priority
-          className="w-[90px] h-[54px] md:w-[160px] md:h-[90px] fill-current hover:-translate-y-1 transition-transform object-contain"
+          className="w-[90px] h-[54px] md:w-[160px] md:h-[90px] hover:-translate-y-1 transition-transform object-contain"
         />
       </a>
 
-      {/* pc */}
+      {/* Desktop Navigation */}
       <nav className="hidden md:flex space-x-20 pr-5">
-        {["GALLERY", "TESTIMONIALS", "ABOUT", "INFO"].map((text, index) => (
-          <a
+        {["gallery", "testimonials", "about", "info"].map((section, index) => (
+          <button
             key={index}
-            href={`#${text.toLowerCase()}`}
+            onClick={() => handleScroll(section)}
             className="relative font-[Montserrat] text-white text-sm font-medium transition-all text-center"
           >
-            <span className="absolute invisible font-bold">{text}</span>
-            <span className="block hover:font-bold">{text}</span>
-          </a>
+            <span className="absolute invisible font-bold">{section.toUpperCase()}</span>
+            <span className="block hover:font-bold">{section.toUpperCase()}</span>
+          </button>
         ))}
       </nav>
 
-      {/* hamburger */}
+      {/* Mobile Hamburger Menu */}
       <button
         className="cursor-pointer sm:flex md:hidden text-white text-2xl absolute right-6"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
