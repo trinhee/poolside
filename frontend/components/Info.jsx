@@ -34,7 +34,7 @@ export default function InfoPage() {
               <h2 className="text-lg font-medium mb-2">CONTACT</h2>
               <p className="mb-1">(416) 399-6769</p>
               <a href="mailto:katyoontorabi@yahoo.com" className="text-blue-600 hover:underline">
-              anothony@poolsideinc.ca
+              anthony@poolsideinc.ca
               </a>
             </div>
 
@@ -71,9 +71,7 @@ export default function InfoPage() {
 
         {/*  Logo */}
         <div className="flex justify-center my-8">
-          <div className="w-16 h-16 border-2 border-black flex items-center justify-center bg-black">
-            <Image src="/logo.png" alt="Logo" width={64} height={64} className="object-contain"/>
-          </div>
+            <Image src="/web-app-manifest-512x512.png" alt="Logo" width={64} height={64} className="object-contain"/>
         </div>
       </div>
 
