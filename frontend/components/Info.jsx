@@ -20,8 +20,8 @@ export default function InfoPage() {
       {/* Logo Section */}
       <div className="py-8 flex justify-center">
         <div className="text-center">
-          <div className="text-6xl font-bold tracking-tighter">PS</div>
-          <div className="text-sm tracking-widest mt-1">POOLSIDE INC</div>
+          <div className="font-[Montserrat] text-6xl font-bold tracking-tighter">PS</div>
+          <div className="font-[Montserrat] text-sm tracking-widest mt-1">POOLSIDE INC</div>
         </div>
       </div>
 
@@ -31,16 +31,16 @@ export default function InfoPage() {
           {/* Left Column - Contact Info */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-lg font-medium mb-2">CONTACT</h2>
-              <p className="mb-1">(416) 399-6769</p>
-              <a href="mailto:temp" className="text-blue-600 hover:underline">
+              <h2 className="font-[Montserrat] text-lg font-medium mb-2">CONTACT</h2>
+              <p className="font-[Montserrat] mb-1">(416) 399-6769</p>
+              <a href="mailto:temp" className="font-[Montserrat] text-blue-600 hover:underline">
               anthony@poolsideinc.ca
               </a>
             </div>
 
             <div>
-              <h2 className="text-lg font-medium mb-2">PLACEHOLDER</h2>
-              <p className="mb-1">Luxury Backyards and Swimming Pools</p>
+              <h2 className="font-[Montserrat] text-lg font-medium mb-2">POOLSIDE INC</h2>
+              <p className="font-[Montserrat] mb-1">Luxury Backyards and Swimming Pools</p>
               <p className="mb-1"></p>
               <p></p>
             </div>
@@ -49,9 +49,8 @@ export default function InfoPage() {
           {/* Right Column - Address and Social */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-lg font-medium mb-2">ADDRESS</h2>
-              <p className="mb-1">123 Pool St, Water City, WC 12345</p>
-              <p>Toronto, ON, Canada</p>
+              <h2 className="font-[Montserrat] text-lg font-medium mb-2">ADDRESS</h2>
+              <p className="font-[Montserrat] mb-1">Toronto, ON, Canada</p>
             </div>
 
             {/* Social Media Icons */}
