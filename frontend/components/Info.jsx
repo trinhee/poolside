@@ -33,7 +33,7 @@ export default function InfoPage() {
             <div>
               <h2 className="text-lg font-medium mb-2">CONTACT</h2>
               <p className="mb-1">(416) 399-6769</p>
-              <a href="mailto:katyoontorabi@yahoo.com" className="text-blue-600 hover:underline">
+              <a href="mailto:temp" className="text-blue-600 hover:underline">
               anthony@poolsideinc.ca
               </a>
             </div>
