@@ -15,7 +15,7 @@ export default function Contact({ isOpen, setIsOpen }) {
     }
     return () => document.body.classList.remove('overflow-hidden');
   }, [isOpen]);
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,6 +53,7 @@ export default function Contact({ isOpen, setIsOpen }) {
     }
   };
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,7 +61,7 @@ export default function Contact({ isOpen, setIsOpen }) {
     if (errors.email || errors.phone) return;
 
     try {
-      const response = await fetch("http://localhost:5000/contacts", {
+      const response = await fetch(`${API_URL}/contacts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
