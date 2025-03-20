@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+const serverless = require("serverless-http");
 
 // Initialize Express app
 const app = express();
@@ -87,3 +88,6 @@ app.post("/contacts", async (req, res) => {
 // Start Express Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+module.exports = app;
+module.exports.handler = serverless(app);
