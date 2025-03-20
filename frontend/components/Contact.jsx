@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconInstagram from "../icons/Instagram";
 import IconFacebook from "../icons/Facebook";
 import IconLinkedin from "../icons/Linkedin";
 import IconYoutube from "../icons/Youtube";
 
 export default function Contact({ isOpen, setIsOpen }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => document.body.classList.remove('overflow-hidden');
+  }, [isOpen]);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +27,8 @@ export default function Contact({ isOpen, setIsOpen }) {
     email: "",
     phone: "",
   });
+
+  const [status, setStatus] = useState(null); // Tracks submission success or failure
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,18 +53,38 @@ export default function Contact({ isOpen, setIsOpen }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!errors.email && !errors.phone) {
-      alert("Form submitted successfully!");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+    // Prevent submission if validation errors exist
+    if (errors.email || errors.phone) return;
+
+    try {
+      const response = await fetch("http://localhost:5000/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ success: true, message: "Message sent successfully!" });
+        setFormData({ name: "", email: "", phone: "", message: "" }); // Reset form
+      } else {
+        setStatus({ success: false, message: data.error || "Failed to send message." });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus({ success: false, message: "Server error, please try again later." });
     }
   };
 
   return (
     isOpen && (
-      <div className="fixed inset-0 bg-black/90 flex flex-col z-50">
+      <div className="fixed inset-0 bg-black/90 flex flex-col z-50 overflow-auto">
         {/* Top Section */}
         <div className="font-[Montserrat] w-full text-white text-5xl md:text-7xl font-normal tracking-normal text-center py-10 md:py-20 relative">
           CONTACT
@@ -77,17 +108,17 @@ export default function Contact({ isOpen, setIsOpen }) {
                 type="text"
                 name="name"
                 placeholder="Name"
-                value={formData.name}
+                value={formData.name || ""}
                 onChange={handleChange}
                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 focus:outline-none"
                 required
               />
-              
+
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={formData.email}
+                value={formData.email || ""}
                 onChange={handleChange}
                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 focus:outline-none"
                 required
@@ -98,7 +129,7 @@ export default function Contact({ isOpen, setIsOpen }) {
                 type="tel"
                 name="phone"
                 placeholder="Phone"
-                value={formData.phone}
+                value={formData.phone || ""}
                 onChange={handleChange}
                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 focus:outline-none"
                 required
@@ -109,7 +140,7 @@ export default function Contact({ isOpen, setIsOpen }) {
                 name="message"
                 placeholder="Message"
                 rows="4"
-                value={formData.message}
+                value={formData.message || ""}
                 onChange={handleChange}
                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 focus:outline-none"
                 required
@@ -121,6 +152,12 @@ export default function Contact({ isOpen, setIsOpen }) {
               >
                 SUBMIT
               </button>
+
+              {status && (
+                <p className={`mt-2 text-sm ${status.success ? "text-green-500" : "text-red-500"}`}>
+                  {status.message}
+                </p>
+              )}
             </form>
           </div>
 
@@ -130,9 +167,9 @@ export default function Contact({ isOpen, setIsOpen }) {
               CONTACT DETAILS
             </h3>
             <div className="flex flex-col">
-              <p className="font-[Playfair] italic text-lg">anothony@poolsideinc.ca</p>
+              <p className="font-[Playfair] italic text-lg">anthony@poolsideinc.ca</p>
               <p className="font-[Playfair] italic text-lg mb-4">(416) 399-6769</p>
-              <p className="font-[Playfair] italic text-lg mb-4">123 Pool St, Water City, WC 12345</p>
+              <p className="font-[Playfair] italic text-lg mb-4">Toronto, ON, Canada</p>
               <p className="font-[Playfair] italic text-lg mb-4 w-full max-w-[410px] mx-auto">
                 Please feel free to contact us with any questions you may have. We will be delighted to assist you with your inquiry.
               </p>
