@@ -3,18 +3,29 @@ const cors = require("cors");
 const { Pool } = require("pg");
 const serverless = require("serverless-http");
 
+// Only required for local development to load .env file
+require("dotenv").config();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Instantiate the Postgres pool
+// Ensure DATABASE_URL is defined
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  console.error("Error: DATABASE_URL environment variable is not set.");
+  process.exit(1);
+}
+
+// Instantiate the PostgreSQL pool
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+  connectionString,
 });
+
+// Optional: Test database connection at startup
+pool.query("SELECT NOW()")
+  .then(result => console.log("Database connected. Time:", result.rows[0].now))
+  .catch(error => console.error("Error connecting to the database:", error));
 
 // Redirect `/` to `/api`
 app.get("/", (req, res) => {
@@ -67,11 +78,11 @@ app.post("/api/contacts", async (req, res) => {
       data: result.rows[0],
     });
   } catch (error) {
-    console.error("❌ Error inserting into database:", error);
+    console.error("Error inserting into database:", error);
     res.status(500).json({ error: "Server error, please try again later." });
   }
 });
 
-// Export for Vercel
+// Export for Vercel deployment
 module.exports = app;
 module.exports.handler = serverless(app);
