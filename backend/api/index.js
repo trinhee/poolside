@@ -7,17 +7,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Redirect `/` to `/api`
+// Instantiate the Postgres pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  
+});
+
+// Redirect `/` to `/api`
 app.get("/", (req, res) => {
   res.redirect("/api");
 });
 
-// ✅ Main API route
+// Main API route
 app.get("/api", (req, res) => {
   res.send("✅ Backend is running!");
 });
 
-// ✅ Database Test Route
+// Database Test Route
 app.get("/api/test-db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -28,7 +34,7 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
-// ✅ Get All Contacts
+// Get All Contacts
 app.get("/api/contacts", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM contacts");
@@ -39,7 +45,7 @@ app.get("/api/contacts", async (req, res) => {
   }
 });
 
-// ✅ Add New Contact
+// Add New Contact
 app.post("/api/contacts", async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
@@ -63,6 +69,6 @@ app.post("/api/contacts", async (req, res) => {
   }
 });
 
-// ✅ Export for Vercel
+// Export for Vercel
 module.exports = app;
 module.exports.handler = serverless(app);
