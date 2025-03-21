@@ -76,3 +76,11 @@ app.post("/api/contacts", async (req, res) => {
 // ✅ Export for Vercel Serverless
 module.exports = app;
 module.exports.handler = serverless(app);
+
+// ✅ Only run locally if executed with `node api/index.js`
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running locally on http://localhost:${PORT}`);
+  });
+}
