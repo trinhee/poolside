@@ -46,7 +46,7 @@ export default function Gallery() {
       {/* Navigation Buttons */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 border-2 border-white flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-white hover:text-black md:w-14 md:h-14"
+        className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 border-2 border-white flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-white hover:text-black md:w-14 md:h-14"
         aria-label="Previous image"
       >
         {"<"}
@@ -54,7 +54,7 @@ export default function Gallery() {
 
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 border-2 border-white flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-white hover:text-black md:w-14 md:h-14"
+        className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 border-2 border-white flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-white hover:text-black md:w-14 md:h-14"
         aria-label="Next image"
       >
         {">"}

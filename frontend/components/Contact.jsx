@@ -12,6 +12,7 @@ export default function Contact({ isOpen, setIsOpen }) {
       document.body.classList.add('overflow-hidden');
     } else {
       document.body.classList.remove('overflow-hidden');
+      setStatus({ success: true, message: "" });
     }
     return () => document.body.classList.remove('overflow-hidden');
   }, [isOpen]);
@@ -170,7 +171,7 @@ export default function Contact({ isOpen, setIsOpen }) {
             <div className="flex flex-col">
               <p className="font-[Playfair] italic text-lg">anthony@poolsideinc.ca</p>
               <p className="font-[Playfair] italic text-lg mb-4">(416) 399-6769</p>
-              <p className="font-[Playfair] italic text-lg mb-4">Toronto, ON, Canada</p>
+              <p className="font-[Playfair] italic text-lg mb-8">Toronto, ON, Canada</p>
               <p className="font-[Playfair] italic text-lg mb-4 w-full max-w-[410px] mx-auto">
                 Please feel free to contact us with any questions you may have. We will be delighted to assist you with your inquiry.
               </p>
@@ -178,7 +179,7 @@ export default function Contact({ isOpen, setIsOpen }) {
 
             {/* Dividing Line + Social Icons */}
             <div className="flex flex-col items-start md:items-center mt-6 w-full">
-              <hr className="border-white my-6 md:my-12 w-3/4 md:w-2/3 lg:w-1/2"></hr>
+              <hr className="border-white my-6 md:my-12 w-3/4 md:w-2/3 lg:w-1/2 mx-auto"></hr>
               <div className="flex justify-center gap-4 md:gap-6 w-full">
                 <IconInstagram />
                 <IconFacebook />
