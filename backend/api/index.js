@@ -1,15 +1,17 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
 const serverless = require("serverless-http");
 
-// Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Create PostgreSQL Pool connection
+// ✅ Create PostgreSQL Pool
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -18,20 +20,12 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-// ✅ Test Database Connection
-pool.connect()
-  .then(() => console.log("✅ Connected to PostgreSQL"))
-  .catch((err) => {
-    console.error("❌ Database connection error:", err);
-    process.exit(1);
-  });
-
-// ✅ Root Route (Test API Health)
+// ✅ Test API
 app.get("/api", (req, res) => {
   res.send("✅ Backend is running!");
 });
 
-// ✅ Test DB Connection
+// ✅ Test Database Connection
 app.get("/api/test-db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -57,7 +51,6 @@ app.get("/api/contacts", async (req, res) => {
 app.post("/api/contacts", async (req, res) => {
   try {
     console.log("Received request:", req.body);
-
     const { name, email, phone, message } = req.body;
 
     if (!name || !email || !phone || !message) {
@@ -80,12 +73,6 @@ app.post("/api/contacts", async (req, res) => {
   }
 });
 
-// Only for local dev (not used in Vercel serverless)
-const PORT = process.env.PORT || 5000;
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-}
-
-// ✅ Export for Vercel serverless
+// ✅ Export for Vercel Serverless
 module.exports = app;
 module.exports.handler = serverless(app);
