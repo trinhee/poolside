@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
@@ -11,21 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Create PostgreSQL Pool
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+// ✅ Redirect `/` to `/api`
+app.get("/", (req, res) => {
+  res.redirect("/api");
 });
 
-// ✅ Test API
+// ✅ Main API route
 app.get("/api", (req, res) => {
   res.send("✅ Backend is running!");
 });
 
-// ✅ Test Database Connection
+// ✅ Database Test Route
 app.get("/api/test-db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -50,9 +42,7 @@ app.get("/api/contacts", async (req, res) => {
 // ✅ Add New Contact
 app.post("/api/contacts", async (req, res) => {
   try {
-    console.log("Received request:", req.body);
     const { name, email, phone, message } = req.body;
-
     if (!name || !email || !phone || !message) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -73,14 +63,6 @@ app.post("/api/contacts", async (req, res) => {
   }
 });
 
-// ✅ Export for Vercel Serverless
+// ✅ Export for Vercel
 module.exports = app;
 module.exports.handler = serverless(app);
-
-// ✅ Only run locally if executed with `node api/index.js`
-if (require.main === module) {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running locally on http://localhost:${PORT}`);
-  });
-}
