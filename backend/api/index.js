@@ -20,6 +20,7 @@ if (!connectionString) {
 // Instantiate the PostgreSQL pool
 const pool = new Pool({
   connectionString,
+  ssl: { rejectUnauthorized: false }
 });
 
 // Optional: Test database connection at startup
@@ -86,3 +87,11 @@ app.post("/api/contacts", async (req, res) => {
 // Export for Vercel deployment
 module.exports = app;
 module.exports.handler = serverless(app);
+
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server is running locally on port ${port}`);
+  });
+}
+
