@@ -118,14 +118,17 @@ app.post("/api/contacts", async (req, res) => {
     };
 
     try {
-      console.log("trying to send to admin");
+      console.log("📤 Sending email to admin...");
       await sgMail.send(adminMsg);
-      sgMail.then(() => console.log("✅ Admin email sent"));
+      console.log("✅ Admin email sent");
+    
+      console.log("📤 Sending confirmation to sender...");
       await sgMail.send(senderMsg);
       console.log("✅ Confirmation email sent");
     } catch (error) {
-        console.error("❌ SendGrid email error:", error.response?.body || error.message);
+      console.error("❌ SendGrid email error:", error.response?.body || error.message);
     }
+    
 
     // ------------------------------------------------------------------------------
 
