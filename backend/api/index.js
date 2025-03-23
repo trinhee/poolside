@@ -118,14 +118,13 @@ app.post("/api/contacts", async (req, res) => {
     };
 
     try {
-      console.log("📧 Sending admin email...");
+      sgMail.then(() => console.log("trying to send to admin"))
       await sgMail.send(adminMsg);
-      console.log("✅ Admin email sent");
-      console.log("📧 Sending confirmation email to user...");
+      sgMail.then(() => console.log("✅ Admin email sent"));
       await sgMail.send(senderMsg);
-      console.log("✅ Confirmation email sent");
+      sgMail.then(() => console.log("✅ Confirmation email sent"));
     } catch (error) {
-      console.error("❌ SendGrid email error:", error.response?.body || error.message);
+      sgMail.catch((error) => console.error("❌ SendGrid email error:", error.response?.body || error.message));
     }
     
     // ------------------------------------------------------------------------------
@@ -138,7 +137,7 @@ app.post("/api/contacts", async (req, res) => {
   } catch (error) {
     const errorDetails = error?.response?.body || error.message || error;
     console.error("❌ Backend error during /api/contacts:", errorDetails);
-    res.status(500).json({ error: "Server error, please try again later." });
+    res.status(500).json({ error: "Server error, please try again later!." });
   }
   
 });
