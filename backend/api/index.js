@@ -84,8 +84,8 @@ app.post("/api/contacts", async (req, res) => {
     // -------------------------------------------------------------------------
     // Send email via SendGrid
     const adminMsg = {
-      to: "ethan.trinh4@gmail.com", // your receiving email
-      from: "ethan.trinh4@gmail.com", // your verified sender in SendGrid
+      to: process.env.FROM_EMAIL,
+      from: email,
       subject: `New Contact Form Submission from ${name}`,
       text: `
             Name: ${name}
@@ -119,11 +119,10 @@ app.post("/api/contacts", async (req, res) => {
 
     try {
       console.log("📧 Sending admin email...");
-      //await sgMail.send(adminMsg);
+      await sgMail.send(adminMsg);
       console.log("✅ Admin email sent");
-    
       console.log("📧 Sending confirmation email to user...");
-      //await sgMail.send(senderMsg);
+      await sgMail.send(senderMsg);
       console.log("✅ Confirmation email sent");
     } catch (error) {
       console.error("❌ SendGrid email error:", error.response?.body || error.message);
