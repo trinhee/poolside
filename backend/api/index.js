@@ -65,7 +65,7 @@ app.get("/api/contacts", async (req, res) => {
   }
 });
 
-const sgMail = require('@sendgrid/mail');
+const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Add New Contact
@@ -118,15 +118,15 @@ app.post("/api/contacts", async (req, res) => {
     };
 
     try {
-      sgMail.then(() => console.log("trying to send to admin"))
+      console.log("trying to send to admin");
       await sgMail.send(adminMsg);
       sgMail.then(() => console.log("✅ Admin email sent"));
       await sgMail.send(senderMsg);
-      sgMail.then(() => console.log("✅ Confirmation email sent"));
+      console.log("✅ Confirmation email sent");
     } catch (error) {
-      sgMail.catch((error) => console.error("❌ SendGrid email error:", error.response?.body || error.message));
+        console.error("❌ SendGrid email error:", error.response?.body || error.message);
     }
-    
+
     // ------------------------------------------------------------------------------
 
     res.status(201).json({
@@ -139,7 +139,6 @@ app.post("/api/contacts", async (req, res) => {
     console.error("❌ Backend error during /api/contacts:", errorDetails);
     res.status(500).json({ error: "Server error, please try again later!." });
   }
-  
 });
 
 // Export for Vercel deployment
