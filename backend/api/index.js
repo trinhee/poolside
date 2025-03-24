@@ -85,7 +85,8 @@ app.post("/api/contacts", async (req, res) => {
     // Send email via SendGrid
     const adminMsg = {
       to: process.env.FROM_EMAIL,
-      from: email,
+      from: process.env.FROM_EMAIL,
+      replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
       text: `
             Name: ${name}
